@@ -30,7 +30,7 @@ const deleteButton=function(customer, customers){
     //if(tasks.length==0) document.querySelector('#noTasks').classList.remove('d-none')
 }
 const dipositButton = function(customer,customers){
-    value = '500'
+    value = prompt('Enter amount')
     id=customer.custId
     ind = customers.findIndex(customer=>customer.custId==id)
     customers[ind].custBalance= +customers[ind].custBalance+ +value
@@ -39,7 +39,7 @@ const dipositButton = function(customer,customers){
     updateShow()
 }
 const withdrawButton = function(customer,customers){
-    value = '100'
+    value = prompt('Enter amount')
     id=customer.custId
     ind = customers.findIndex(customer=>customer.custId==id)
     if (parseInt(customers[ind].custBalance) <parseInt(value) ){
