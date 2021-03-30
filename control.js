@@ -19,15 +19,23 @@ const addElement = function(parent, element, attributes, classes, txt){
 }
 const updateShow = function(){
     document.querySelectorAll('.x').forEach(div=>div.remove())
-    showAllCustomers()
+    if (getCustomers().length==0){
+        document.querySelector('#notFound').classList.remove('d-none')
+    }
+    else{
+        document.querySelector('#notFound').classList.add('d-none')
+        showAllCustomers()
+    }
 }
 const deleteButton=function(customer, customers){
+    // updateShow()
+    // document.querySelector('#filter').value=""
     id=customer.custId
     ind = customers.findIndex(customer=>customer.custId==id)
     customers.splice(ind,1)
     setCustomers(customers)
     document.querySelectorAll('.x')[ind].remove()
-    //if(tasks.length==0) document.querySelector('#noTasks').classList.remove('d-none')
+    if(customers.length==0) document.querySelector('#notFound').classList.remove('d-none')
 }
 const dipositButton = function(customer,customers){
     value = prompt('Enter amount')
@@ -96,7 +104,6 @@ newCustData.addEventListener('submit',function(e){
     customersData.push(data)
     setCustomers(customersData)
     this.reset()
-    //newCustSection.classList.toggle('d-none')
     updateShow()
 })
 showAllButton.addEventListener('click', function(e){
@@ -105,7 +112,13 @@ showAllButton.addEventListener('click', function(e){
     }
     this.innerText==="Show All Customers"?this.innerText="Hide All Customers":this.innerText="Show All Customers";
     customersSection.classList.toggle('d-none')
-    showAllCustomers()
+    if (getCustomers().length==0){
+        document.querySelector('#notFound').classList.remove('d-none')
+    }
+    else{
+        document.querySelector('#notFound').classList.add('d-none')
+        showAllCustomers()
+    }
 })
 myFilter.addEventListener('keyup', function(e){
     searchWord = myFilter.value
@@ -116,5 +129,11 @@ myFilter.addEventListener('keyup', function(e){
         foundCusts.push(customer)
     })
     found = foundCusts.filter(found => found.custName.includes(searchWord))
-    found.forEach(found=>showSingleCustomer(found))
+    if (found.length==0){
+        document.querySelector('#notFound').classList.remove('d-none')
+    }
+    else {
+        document.querySelector('#notFound').classList.add('d-none')
+        found.forEach(found=>showSingleCustomer(found))
+    }
 })
