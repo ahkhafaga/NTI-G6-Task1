@@ -109,11 +109,12 @@ showAllButton.addEventListener('click', function(e){
 })
 myFilter.addEventListener('keyup', function(e){
     searchWord = myFilter.value
+    let foundCusts = []
     customers = getCustomers()
     document.querySelectorAll('.x').forEach(div=>div.remove())
-    let foundCusts = customers.filter(customer => {
-        customer.custName.includes(searchWord)
+    customers.forEach(customer=>{
+        foundCusts.push(customer)
     })
-    console.log(foundCusts)
-    foundCusts.forEach(found=>showSingleCustomer(found))
+    found = foundCusts.filter(found => found.custName.includes(searchWord))
+    found.forEach(found=>showSingleCustomer(found))
 })
